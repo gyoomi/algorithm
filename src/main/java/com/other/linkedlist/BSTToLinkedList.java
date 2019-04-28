@@ -9,9 +9,14 @@ package com.other.linkedlist;
 public class BSTToLinkedList {
 
     public static void main(String[] args) throws Exception {
-
+        Node<Integer, Object> root = new Node<Integer, Object>(10, null);
+        root.left = new Node<Integer, Object>(8, null);
+        root.right = new Node<Integer, Object>(12, null);
+        root.left.left = new Node<Integer, Object>(6, null);
+        root.left.right = new Node<Integer, Object>(9, null);
+        Node rootToUse = convert(root);
+        System.out.println(rootToUse);
     }
-
 
 
     /**
@@ -56,7 +61,7 @@ public class BSTToLinkedList {
         return root;
     }
 
-    class Node<K, V>{
+    static class Node<K, V>{
         public K key;
         public V value;
         public Node left, right;
