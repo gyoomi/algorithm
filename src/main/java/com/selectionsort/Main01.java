@@ -1,11 +1,13 @@
 package com.selectionsort;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * 选择排序
+ *
+ * 1.查出最小的元素索引和对应的元素
+ * 2.按照从小到大的顺序放入到新的集合中去
  *
  * @author Leon
  * @version 2019/4/29 23:19
