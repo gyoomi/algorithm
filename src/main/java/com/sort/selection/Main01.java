@@ -1,4 +1,4 @@
-package com.selectionsort;
+package com.sort.selection;
 
 import java.util.ArrayList;
 import java.util.List;
