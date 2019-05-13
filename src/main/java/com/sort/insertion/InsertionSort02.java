@@ -3,7 +3,7 @@ package com.sort.insertion;
 import java.util.Arrays;
 
 /**
- * 类功能描述
+ * 优化思路：将多次交换复制，转换成一次赋值交换。
  *
  * @author Leon
  * @version 2019/5/12 23:17

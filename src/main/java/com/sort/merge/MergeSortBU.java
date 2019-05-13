@@ -1,57 +1,29 @@
-/**
- * Copyright © 2019, LeonKeh
- * <p>
- * All Rights Reserved.
- */
-
 package com.sort.merge;
 
 import java.util.Arrays;
 
 /**
- * 类功能描述
+ * 自底向上的归并排序
  *
  * @author Leon
- * @version 2019/1/22 17:43
+ * @version 2019/5/13 22:38
  */
-public class MergeSort {
+public class MergeSortBU {
 
-    /**
-     *
-     * Merge Sort是我们学习的第一个O(nlogn)复杂度的算法
-     * 可以在1秒之内轻松处理100万数量级的数据
-     * 注意：不要轻易尝试使用SelectionSort, InsertionSort或者BubbleSort处理100万级的数据
-     * 否则，你就见识了O(n^2)的算法和O(nlogn)算法的本质差异
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int[] arr = {-9, 12, 8, 55, 84, -90, 25, 28, 25, 3};
         sort(arr);
         System.out.println(Arrays.toString(arr));
-
     }
 
     public static void sort(int[] arr) {
-        sort(arr, 0, arr.length - 1);
-    }
-
-    /**
-     * 递归使用归并排序,对arr[l...r]的范围进行排序
-     *
-     * @param arr
-     * @param l
-     * @param r
-     */
-    private static void sort(int[] arr, int l, int r) {
-        if (l >= r) {
-            return;
+        int n = arr.length;
+        for (int sz = 1; sz <= n; sz *= 2) {
+            for (int i = 0; i + sz < n; i += sz + sz) {
+                // 对 arr[i...i+sz-1] 和 arr[i+sz...i+2*sz-1] 进行归并
+                merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1));
+            }
         }
-        // 隐藏bug：待优化
-        int mid = (l + r) / 2;
-        sort(arr, l, mid);
-        sort(arr, mid + 1, r);
-        merge(arr, l, mid, r);
     }
 
     /**
@@ -77,15 +49,15 @@ public class MergeSort {
             if (i > mid) {
                 arr[k] = aux[j - l];
                 j++;
-            // 如果右半部分元素已经全部处理完毕
+                // 如果右半部分元素已经全部处理完毕
             } else if (j > r) {
                 arr[k] = aux[i - l];
                 i++;
-            // 左半部分所指元素 < 右半部分所指元素
+                // 左半部分所指元素 < 右半部分所指元素
             } else if (aux[i - l] < aux[j - l]) {
                 arr[k] = aux[i - l];
                 i++;
-            // 左半部分所指元素 > 右半部分所指元素
+                // 左半部分所指元素 > 右半部分所指元素
             } else {
                 arr[k] = aux[j - l];
                 j++;

@@ -14,7 +14,7 @@ import java.util.Arrays;
  * @author Leon
  * @version 2019/1/22 17:43
  */
-public class MergeSort {
+public class MergeSort02Optimize {
 
     /**
      *
@@ -44,14 +44,20 @@ public class MergeSort {
      * @param r
      */
     private static void sort(int[] arr, int l, int r) {
-        if (l >= r) {
+        // 优化2: 对于小规模数组, 使用插入排序
+        if (15 >= r - l) {
+            // InsertionSort.sort(arr, l, r);
             return;
         }
         // 隐藏bug：待优化
         int mid = (l + r) / 2;
         sort(arr, l, mid);
         sort(arr, mid + 1, r);
-        merge(arr, l, mid, r);
+        // 优化1: 对于arr[mid] <= arr[mid+1]的情况,不进行merge
+        // 对于近乎有序的数组非常有效,但是对于一般情况,有一定的性能损失
+        if (arr[l] > arr[mid + 1]) {
+            merge(arr, l, mid, r);
+        }
     }
 
     /**
@@ -75,7 +81,7 @@ public class MergeSort {
         for (int k = l; k <= r; k++) {
             // 如果左半部分元素已经全部处理完毕
             if (i > mid) {
-                arr[k] = aux[j - l];
+                arr[k] = aux[j - l]; 
                 j++;
             // 如果右半部分元素已经全部处理完毕
             } else if (j > r) {
